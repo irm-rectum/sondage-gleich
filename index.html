@@ -28,14 +28,21 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             text-align: center;
         }
 
         .survey-form h1 {
-            font-size: 24px;
+            font-size: 26px;
             margin-bottom: 20px;
             color: #2c3e50;
+            text-align: center;
+        }
+
+        .survey-form p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         /* Style des labels et du select */
@@ -44,18 +51,24 @@
             margin-bottom: 10px;
             display: block;
             text-align: left;
+            margin-left: 10px;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
         }
 
         button {
-            padding: 12px 20px;
             background-color: #3498db;
             color: white;
-            font-size: 18px;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin: 10px;
         }
 
         button:hover {
@@ -77,14 +90,15 @@
             background-color: #2ecc71;
         }
 
-        .alert.error {
-            background-color: #e74c3c;
+        /* Style pour masquer certains éléments */
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="survey-form" id="surveyFormContainer">
-        <h1>Nous avons besoin de votre aide !</h1>
+        <h1>Formulaire de Sondage</h1>
 
         <!-- Question "Avez-vous obtenu votre Gleich ?" -->
         <div id="gleich-question">
@@ -94,66 +108,64 @@
         </div>
 
         <!-- Formulaire de sondage (initialement caché) -->
-        <form id="survey-form" style="display:none;">
-            <label for="land">Choisissez un Land d'Allemagne :</label>
+        <form id="survey-form" class="hidden">
+            <label for="land">Dans quel Land avez-vous déposé votre dossier afin d'obtenir le Gleich ?</label>
             <select id="land" name="land">
-                <option value="">Sélectionner un Land</option>
+                <option value="">Sélectionnez votre Land</option>
                 <option value="baden-wuerttemberg">Baden-Württemberg</option>
                 <option value="bayern">Bayern</option>
                 <option value="berlin">Berlin</option>
                 <option value="brandenburg">Brandenburg</option>
-                <option value="breme">Bremen</option>
-                <option value="hambourg">Hamburg</option>
-                <option value="hesse">Hessen</option>
-                <option value="mecklembourg-vorpommern">Mecklenburg-Vorpommern</option>
-                <option value="basse-axe">Niedersachsen</option>
-                <option value="rhenanie-du-nord-westphalie">Nordrhein-Westfalen</option>
-                <option value="rhenanie-palatinat">Rheinland-Pfalz</option>
-                <option value="sarre">Saarland</option>
-                <option value="saxe">Sachsen</option>
-                <option value="saxe-anhalt">Sachsen-Anhalt</option>
+                <option value="bremen">Bremen</option>
+                <option value="hamburg">Hamburg</option>
+                <option value="hessen">Hessen</option>
+                <option value="mecklenburg-vorpommern">Mecklenburg-Vorpommern</option>
+                <option value="niedersachsen">Niedersachsen</option>
+                <option value="north-rhine-westphalia">Nordrhein-Westfalen</option>
+                <option value="rhineland-palatinate">Rheinland-Pfalz</option>
+                <option value="saarland">Saarland</option>
+                <option value="sachsen">Sachsen</option>
+                <option value="sachsen-anhalt">Sachsen-Anhalt</option>
                 <option value="schleswig-holstein">Schleswig-Holstein</option>
-                <option value="thuringe">Thüringen</option>
+                <option value="thueringen">Thüringen</option>
+            </select>
+
+            <!-- Nouvelle sous-catégorie : Année d'obtention du diplôme -->
+            <label for="diploma-year">Quand avez-vous obtenu votre diplôme ?</label>
+            <select id="diploma-year" name="diploma-year">
+                <option value="">Sélectionnez unae année</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
             </select>
 
             <!-- Nouvelle sous-catégorie : Université -->
-            <div id="university-container" style="display:none;">
-                <label for="university">Quelle est votre université ?</label>
-                <select id="university" name="university">
-                    <option value="FMPC">FMPC</option>
-                    <option value="FMPR">FMPR</option>
-                    <option value="FMPF">FMPF</option>
-                    <option value="FMPM">FMPM</option>
-                    <option value="FMPO">FMPO</option>
-                    <option value="UM6SS">UM6SS</option>
-                    <option value="UIASS">UIASS</option>
-                </select>
-            </div>
-
-            <!-- Nouvelle sous-catégorie : Année d'obtention du diplôme -->
-            <div id="diploma-year-container" style="display:none;">
-                <label for="diploma-year">Quand avez-vous obtenu votre diplôme ?</label>
-                <select id="diploma-year" name="diploma-year">
-                    <option value="2025">2025</option>
-                    <option value="2024">2024</option>
-                    <option value="2023">2023</option>
-                    <option value="2022">2022</option>
-                    <option value="2021">2021</option>
-                    <option value="2020">2020</option>
-                    <option value="2019">2019</option>
-                    <option value="2018">2018</option>
-                    <option value="2017">2017</option>
-                    <option value="2016">2016</option>
-                    <option value="2015">2015</option>
-                </select>
-            </div>
+            <label for="university">Quelle est votre université ?</label>
+            <select id="university" name="university">
+                <option value="">Sélectionnez votre université</option>
+                <option value="FMPC">FMPC</option>
+                <option value="FMPR">FMPR</option>
+                <option value="FMPF">FMPF</option>
+                <option value="FMPM">FMPM</option>
+                <option value="FMPO">FMPO</option>
+                <option value="UM6SS">UM6SS</option>
+                <option value="UIASS">UIASS</option>
+            </select>
 
             <button type="submit">Soumettre</button>
         </form>
 
         <!-- Message d'erreur si non éligible -->
-        <div id="error-message" style="display:none;" class="alert error">
-            Ce formulaire s'adresse aux médecins ayant effectué et obtenu le Gleich. Merci pour votre compréhension.
+        <div id="error-message" class="alert">
+            Ce formulaire s'adresse aux médecins ayant effectué et obtenu le Gleich§ Merci pour votre compréhension.
         </div>
 
         <!-- Message de succès -->
@@ -167,50 +179,22 @@
         const gleichQuestion = document.getElementById("gleich-question");
         const surveyForm = document.getElementById("survey-form");
         const landSelect = document.getElementById("land");
-        const universityContainer = document.getElementById("university-container");
-        const diplomaYearContainer = document.getElementById("diploma-year-container");
+        const universityContainer = document.getElementById("university");
+        const diplomaYearContainer = document.getElementById("diploma-year");
         const errorMessage = document.getElementById("error-message");
         const alertMessage = document.getElementById("alertMessage");
 
         // Action lorsque l'utilisateur clique sur "Oui"
         yesButton.addEventListener("click", function() {
             gleichQuestion.style.display = "none"; // Masquer la question initiale
-            surveyForm.style.display = "block"; // Afficher le formulaire
+            surveyForm.classList.remove("hidden"); // Afficher le formulaire
         });
 
         // Action lorsque l'utilisateur clique sur "Non"
         noButton.addEventListener("click", function() {
             gleichQuestion.style.display = "none"; // Masquer la question initiale
             errorMessage.style.display = "block"; // Afficher le message d'erreur
-            surveyForm.style.display = "none"; // Cacher le formulaire
-        });
-
-        // Écouter le changement de Land sélectionné
-        landSelect.addEventListener("change", function() {
-            const selectedLand = landSelect.value;
-            
-            // Si un Land est sélectionné, afficher la question de l'université
-            if (selectedLand) {
-                universityContainer.style.display = "block";
-            } else {
-                // Masquer les sous-catégories si aucun Land n'est sélectionné
-                universityContainer.style.display = "none";
-                diplomaYearContainer.style.display = "none";
-            }
-        });
-
-        // Écouter le changement de l'université sélectionnée
-        const universitySelect = document.getElementById("university");
-
-        universitySelect.addEventListener("change", function() {
-            const selectedUniversity = universitySelect.value;
-
-            // Si une université est sélectionnée, afficher la question de l'année d'obtention du diplôme
-            if (selectedUniversity) {
-                diplomaYearContainer.style.display = "block";
-            } else {
-                diplomaYearContainer.style.display = "none";
-            }
+            surveyForm.classList.add("hidden"); // Cacher le formulaire
         });
 
         // Gérer la soumission du formulaire
@@ -220,12 +204,12 @@
             event.preventDefault();
             
             const selectedLand = landSelect.value;
-            const selectedUniversity = universitySelect.value;
-            const selectedDiplomaYear = document.getElementById("diploma-year").value;
+            const selectedUniversity = universityContainer.value;
+            const selectedDiplomaYear = diplomaYearContainer.value;
 
             // Afficher un message de succès
             alertMessage.classList.add("success");
-            alertMessage.textContent = `Merci ! Vous avez choisi : ${selectedLand}, université : ${selectedUniversity}, diplôme obtenu en ${selectedDiplomaYear}`;
+            alertMessage.textContent = `Merci ! Vous avez choisi : ${selectedLand}, université : ${selectedUniversity}, diplôme obtenu en ${selectedDiplomaYear}.`;
             alertMessage.style.display = "block";
         });
     </script>
