@@ -46,24 +46,6 @@
             text-align: left;
         }
 
-        select {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #fafafa;
-            margin-bottom: 20px;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        select:focus {
-            background-color: #e9ecef;
-            border-color: #3498db;
-            outline: none;
-        }
-
-        /* Style du bouton */
         button {
             padding: 12px 20px;
             background-color: #3498db;
@@ -73,6 +55,7 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin: 10px;
         }
 
         button:hover {
@@ -93,16 +76,28 @@
         .alert.success {
             background-color: #2ecc71;
         }
+
+        .alert.error {
+            background-color: #e74c3c;
+        }
     </style>
 </head>
 <body>
-    <div class="survey-form">
-        <h1>Dans quel Land avez-vous déposé votre dossier ?</h1>
+    <div class="survey-form" id="surveyFormContainer">
+        <h1>Nous avons besoin de votre aide !</h1>
 
-        <!-- Formulaire de sondage -->
-        <form id="survey-form">
+        <!-- Question "Avez-vous obtenu votre Gleich ?" -->
+        <div id="gleich-question">
+            <p>Avez-vous obtenu votre Gleich ?</p>
+            <button id="yes-button">Oui</button>
+            <button id="no-button">Non</button>
+        </div>
+
+        <!-- Formulaire de sondage (initialement caché) -->
+        <form id="survey-form" style="display:none;">
             <label for="land">Choisissez un Land d'Allemagne :</label>
             <select id="land" name="land">
+                <option value="">Sélectionner un Land</option>
                 <option value="baden-wuerttemberg">Baden-Württemberg</option>
                 <option value="bayern">Bayern</option>
                 <option value="berlin">Berlin</option>
@@ -121,31 +116,117 @@
                 <option value="thuringe">Thüringen</option>
             </select>
 
+            <!-- Nouvelle sous-catégorie : Université -->
+            <div id="university-container" style="display:none;">
+                <label for="university">Quelle est votre université ?</label>
+                <select id="university" name="university">
+                    <option value="FMPC">FMPC</option>
+                    <option value="FMPR">FMPR</option>
+                    <option value="FMPF">FMPF</option>
+                    <option value="FMPM">FMPM</option>
+                    <option value="FMPO">FMPO</option>
+                    <option value="UM6SS">UM6SS</option>
+                    <option value="UIASS">UIASS</option>
+                </select>
+            </div>
+
+            <!-- Nouvelle sous-catégorie : Année d'obtention du diplôme -->
+            <div id="diploma-year-container" style="display:none;">
+                <label for="diploma-year">Quand avez-vous obtenu votre diplôme ?</label>
+                <select id="diploma-year" name="diploma-year">
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                </select>
+            </div>
+
             <button type="submit">Soumettre</button>
         </form>
 
+        <!-- Message d'erreur si non éligible -->
+        <div id="error-message" style="display:none;" class="alert error">
+            Ce formulaire s'adresse aux médecins ayant effectué et obtenu le Gleich. Merci pour votre compréhension.
+        </div>
+
+        <!-- Message de succès -->
         <div class="alert" id="alertMessage"></div>
     </div>
 
     <script>
-        // Code pour gérer le formulaire (exemple d'interaction)
-        const form = document.getElementById("survey-form");
+        // Sélectionner les éléments nécessaires
+        const yesButton = document.getElementById("yes-button");
+        const noButton = document.getElementById("no-button");
+        const gleichQuestion = document.getElementById("gleich-question");
+        const surveyForm = document.getElementById("survey-form");
+        const landSelect = document.getElementById("land");
+        const universityContainer = document.getElementById("university-container");
+        const diplomaYearContainer = document.getElementById("diploma-year-container");
+        const errorMessage = document.getElementById("error-message");
         const alertMessage = document.getElementById("alertMessage");
+
+        // Action lorsque l'utilisateur clique sur "Oui"
+        yesButton.addEventListener("click", function() {
+            gleichQuestion.style.display = "none"; // Masquer la question initiale
+            surveyForm.style.display = "block"; // Afficher le formulaire
+        });
+
+        // Action lorsque l'utilisateur clique sur "Non"
+        noButton.addEventListener("click", function() {
+            gleichQuestion.style.display = "none"; // Masquer la question initiale
+            errorMessage.style.display = "block"; // Afficher le message d'erreur
+            surveyForm.style.display = "none"; // Cacher le formulaire
+        });
+
+        // Écouter le changement de Land sélectionné
+        landSelect.addEventListener("change", function() {
+            const selectedLand = landSelect.value;
+            
+            // Si un Land est sélectionné, afficher la question de l'université
+            if (selectedLand) {
+                universityContainer.style.display = "block";
+            } else {
+                // Masquer les sous-catégories si aucun Land n'est sélectionné
+                universityContainer.style.display = "none";
+                diplomaYearContainer.style.display = "none";
+            }
+        });
+
+        // Écouter le changement de l'université sélectionnée
+        const universitySelect = document.getElementById("university");
+
+        universitySelect.addEventListener("change", function() {
+            const selectedUniversity = universitySelect.value;
+
+            // Si une université est sélectionnée, afficher la question de l'année d'obtention du diplôme
+            if (selectedUniversity) {
+                diplomaYearContainer.style.display = "block";
+            } else {
+                diplomaYearContainer.style.display = "none";
+            }
+        });
+
+        // Gérer la soumission du formulaire
+        const form = document.getElementById("survey-form");
 
         form.addEventListener("submit", function(event) {
             event.preventDefault();
             
-            const selectedLand = document.getElementById("land").value;
+            const selectedLand = landSelect.value;
+            const selectedUniversity = universitySelect.value;
+            const selectedDiplomaYear = document.getElementById("diploma-year").value;
 
             // Afficher un message de succès
-            alertMessage.classList.remove("success");
-            alertMessage.classList.add("alert");
-            alertMessage.textContent = "Vous avez déposé votre dossier dans le Land : " + selectedLand;
+            alertMessage.classList.add("success");
+            alertMessage.textContent = `Merci ! Vous avez choisi : ${selectedLand}, université : ${selectedUniversity}, diplôme obtenu en ${selectedDiplomaYear}`;
             alertMessage.style.display = "block";
-            
-            setTimeout(() => {
-                alertMessage.style.display = "none";
-            }, 3000);
         });
     </script>
 </body>
