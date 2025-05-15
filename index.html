@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sondage avec Arborescence Conditionnelle</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sondage : Land avec Gleich</title>
 </head>
 <body>
-  <div class="container">
-    <h1>Sondage : Votre préférence technologique</h1>
+    <h1>Sondage : Dans quel Land avez vous déposé votre dossier ?</h1>
+
+    <!-- Formulaire de sondage -->
     <form id="survey-form">
-      
-      <!-- Question 1 -->
-      <label for="tech">Quel est votre langage préféré ?</label>
-      <select id="tech" name="tech">
-        <option value="python">Python</option>
-        <option value="js">JavaScript</option>
-        <option value="cpp">C++</option>
-      </select>
-
-      <!-- Question 2 : Affichée si "JavaScript" est choisi -->
-      <div id="js-questions" class="hidden">
-        <label for="js-framework">Quel framework JavaScript utilisez-vous ?</label>
-        <select id="js-framework" name="js-framework">
-          <option value="react">React</option>
-          <option value="vue">Vue.js</option>
-          <option value="angular">Angular</option>
+        <label for="land">Choisissez votre Land :</label>
+        <select id="land" name="land">
+            <option value="baden-wuerttemberg">Baden-Württemberg</option>
+            <option value="bayern">Bayern</option>
+            <option value="berlin">Berlin</option>
+            <option value="brandenburg">Brandenburg</option>
+            <option value="breme">Bremen</option>
+            <option value="hambourg">Hamburg</option>
+            <option value="hesse">Hessen</option>
+            <option value="mecklembourg-vorpommern">Mecklenburg-Vorpommern</option>
+            <option value="basse-axe">Niedersachsen</option>
+            <option value="rhenanie-du-nord-westphalie">Nordrhein-Westfalen</option>
+            <option value="rhenanie-palatinat">Rheinland-Pfalz</option>
+            <option value="sarre">Saarland</option>
+            <option value="saxe">Sachsen</option>
+            <option value="saxe-anhalt">Sachsen-Anhalt</option>
+            <option value="schleswig-holstein">Schleswig-Holstein</option>
+            <option value="thuringe">Thüringen</option>
         </select>
-      </div>
 
-      <!-- Question 3 : Affichée si "Python" est choisi -->
-      <div id="python-questions" class="hidden">
-        <label for="python-framework">Quel framework Python préférez-vous ?</label>
-        <select id="python-framework" name="python-framework">
-          <option value="django">Django</option>
-          <option value="flask">Flask</option>
-        </select>
-      </div>
-
-      <button type="submit">Envoyer</button>
+        <button type="submit">Soumettre</button>
     </form>
-  </div>
-  <script src="script.js"></script>
+
+    <script>
+        // Code pour gérer le formulaire (exemple d'interaction)
+        const form = document.getElementById("survey-form");
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const selectedLand = document.getElementById("land").value;
+            alert("Vous avez sélectionné le Land : " + selectedLand);
+        });
+    </script>
 </body>
 </html>
