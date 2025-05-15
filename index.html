@@ -8,7 +8,10 @@
         /* Style global pour la page */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
+            background-color: #e1f7d5; /* Vert pâle, couleur douce */
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Medical_cross.svg/1024px-Medical_cross.svg.png');
+            background-repeat: repeat;
+            background-size: 50px 50px; /* Taille des icônes de croix médicale */
             margin: 0;
             padding: 0;
             display: flex;
@@ -94,7 +97,7 @@
 </head>
 <body>
     <div class="survey-form">
-        <h1>Sondage : Dans quel Land avez vous déposé votre dossier ?</h1>
+        <h1>Dans quel Land avez-vous déposé votre dossier ?</h1>
 
         <!-- Formulaire de sondage -->
         <form id="survey-form">
@@ -137,7 +140,7 @@
             // Afficher un message de succès
             alertMessage.classList.remove("success");
             alertMessage.classList.add("alert");
-            alertMessage.textContent = "Vous avez sélectionné le Land : " + selectedLand;
+            alertMessage.textContent = "Vous avez déposé votre dossier dans le Land : " + selectedLand;
             alertMessage.style.display = "block";
             
             setTimeout(() => {
