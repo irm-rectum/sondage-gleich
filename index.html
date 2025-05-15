@@ -209,13 +209,12 @@
       const diplomaYear = document.getElementById("diploma-year").value;
 
       // ➜ Option : envoyer vers Google Sheets (à activer si tu veux)
-      /*
-      fetch("https://script.google.com/macros/s/TON_URL/exec", {
+      
+      fetch("https://script.google.com/macros/s/AKfycbwD15sZvNUJ4BdfqhRImj7M7sRpP7xEwWUfWZ9HTP9KQa7DgnOq0P6GJFsAjtNWh0tvAg/exec", {
         method: "POST",
         body: JSON.stringify({ land, university, diplomaYear }),
         headers: { "Content-Type": "application/json" }
       })
-      */
 
       // Afficher résumé et désactiver retour
       document.getElementById("surveyFormContainer").innerHTML = `
